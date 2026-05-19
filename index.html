@@ -1,0 +1,1352 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>DevX AI Labs — Custom Industrial AI for Refining Operations</title>
+<meta name="description" content="A custom industrial AI foundation and agents, built in your tenant, designed for your assets and your engineers." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --bg: #ffffff;
+    --bg-alt: #f7f8fa;
+    --bg-dark: #0a1628;
+    --text: #0a1628;
+    --text-secondary: #3a4a5e;
+    --text-muted: #6b7a8f;
+    --border: #e5e8ec;
+    --border-strong: #cfd5dc;
+    --accent: #0066ff;
+    --accent-dark: #0052cc;
+    --accent-soft: #eef4ff;
+    --max-width: 1200px;
+    --padding: clamp(1.5rem, 4vw, 4rem);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  img { max-width: 100%; display: block; }
+
+  a { color: var(--accent); text-decoration: none; }
+
+  /* Navigation */
+  nav {
+    background: var(--bg);
+    border-bottom: 1px solid var(--border);
+    padding: 1.1rem var(--padding);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+
+  .nav-inner {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 2rem;
+  }
+
+  .logo {
+    font-weight: 700;
+    font-size: 1.05rem;
+    letter-spacing: -0.01em;
+    color: var(--text);
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+  }
+
+  .logo-mark {
+    width: 28px;
+    height: 28px;
+    background: var(--text);
+    color: #fff;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.85rem;
+    font-weight: 800;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 2rem;
+    list-style: none;
+    align-items: center;
+  }
+
+  .nav-links a {
+    color: var(--text-secondary);
+    font-size: 0.92rem;
+    font-weight: 500;
+    transition: color 0.15s;
+  }
+
+  .nav-links a:hover { color: var(--text); }
+
+  .btn-primary {
+    background: var(--text);
+    color: #fff;
+    padding: 0.65rem 1.4rem;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    transition: all 0.15s;
+    border: 1px solid var(--text);
+    display: inline-block;
+    cursor: pointer;
+  }
+
+  .btn-primary:hover {
+    background: #1a2638;
+    color: #fff;
+  }
+
+  .btn-secondary {
+    background: transparent;
+    color: var(--text);
+    padding: 0.65rem 1.4rem;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    border: 1px solid var(--border-strong);
+    transition: all 0.15s;
+    display: inline-block;
+    cursor: pointer;
+  }
+
+  .btn-secondary:hover {
+    border-color: var(--text);
+  }
+
+  @media (max-width: 860px) {
+    .nav-links { display: none; }
+  }
+
+  /* Section base */
+  section {
+    padding: clamp(4rem, 8vw, 7rem) var(--padding);
+  }
+
+  .container {
+    max-width: var(--max-width);
+    margin: 0 auto;
+  }
+
+  .section-alt { background: var(--bg-alt); }
+
+  /* Typography */
+  .eyebrow {
+    color: var(--accent);
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    margin-bottom: 1rem;
+  }
+
+  h1 {
+    font-size: clamp(2.25rem, 5vw, 3.75rem);
+    font-weight: 700;
+    letter-spacing: -0.025em;
+    line-height: 1.1;
+    color: var(--text);
+    margin-bottom: 1.5rem;
+  }
+
+  h2 {
+    font-size: clamp(1.75rem, 3.5vw, 2.5rem);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.15;
+    color: var(--text);
+    margin-bottom: 1.25rem;
+  }
+
+  h3 {
+    font-size: 1.3rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    color: var(--text);
+    margin-bottom: 0.75rem;
+  }
+
+  .section-lede {
+    font-size: 1.1rem;
+    color: var(--text-secondary);
+    max-width: 720px;
+    line-height: 1.6;
+  }
+
+  /* Hero */
+  .hero {
+    padding-top: clamp(4rem, 7vw, 6rem);
+    padding-bottom: clamp(4rem, 7vw, 6rem);
+  }
+
+  .hero-grid {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+  }
+
+  @media (max-width: 900px) {
+    .hero-grid {
+      grid-template-columns: 1fr;
+      gap: 3rem;
+    }
+  }
+
+  .hero p.lede {
+    font-size: 1.15rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin-bottom: 2rem;
+    max-width: 540px;
+  }
+
+  .hero-cta {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .hero-visual {
+    aspect-ratio: 5 / 4;
+    background: linear-gradient(135deg, #f0f4fb 0%, #e6edf7 100%);
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    position: relative;
+    overflow: hidden;
+    padding: 2rem;
+  }
+
+  .schematic {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 0.75rem;
+  }
+
+  .schematic-layer {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 0.85rem 1.1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+    box-shadow: 0 1px 2px rgba(10, 22, 40, 0.04);
+  }
+
+  .schematic-layer.accent { border-color: var(--accent); }
+
+  .schematic-icon {
+    width: 28px;
+    height: 28px;
+    background: var(--accent-soft);
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .schematic-text {
+    flex: 1;
+  }
+
+  .schematic-label {
+    font-family: monospace;
+    font-size: 0.65rem;
+    color: var(--accent);
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    margin-bottom: 0.15rem;
+  }
+
+  .schematic-title {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--text);
+  }
+
+  .schematic-arrow {
+    text-align: center;
+    color: var(--border-strong);
+    font-size: 1rem;
+    line-height: 0.3;
+    margin: -0.3rem 0;
+  }
+
+  /* Three pillars */
+  .pillars {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 3rem;
+  }
+
+  @media (max-width: 860px) {
+    .pillars { grid-template-columns: 1fr; gap: 2rem; }
+  }
+
+  .pillar h3 {
+    font-size: 1.35rem;
+    font-weight: 700;
+    margin-bottom: 0.85rem;
+  }
+
+  .pillar p {
+    color: var(--text-secondary);
+    font-size: 0.98rem;
+    line-height: 1.65;
+  }
+
+  /* Middle proof section */
+  .proof-grid {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+  }
+
+  @media (max-width: 900px) {
+    .proof-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+  }
+
+  .proof-visual {
+    aspect-ratio: 16 / 11;
+    background: linear-gradient(135deg, #0a1628 0%, #1e3a5f 100%);
+    border-radius: 12px;
+    padding: 2.5rem;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .proof-visual::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -30%;
+    width: 80%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(0, 102, 255, 0.15) 0%, transparent 60%);
+    pointer-events: none;
+  }
+
+  .data-flow {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+    position: relative;
+    z-index: 1;
+  }
+
+  .data-flow-item {
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 6px;
+    padding: 0.7rem 1rem;
+    font-size: 0.85rem;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    backdrop-filter: blur(8px);
+    gap: 1rem;
+  }
+
+  .data-flow-item.highlight {
+    background: rgba(0, 102, 255, 0.25);
+    border-color: rgba(0, 102, 255, 0.6);
+  }
+
+  .data-flow-tag {
+    font-family: monospace;
+    font-size: 0.7rem;
+    color: #7da4ff;
+    font-weight: 600;
+    white-space: nowrap;
+  }
+
+  /* Engine section */
+  .engine-header {
+    text-align: center;
+    max-width: 720px;
+    margin: 0 auto 3rem;
+  }
+
+  .engine-header .section-lede { margin: 0 auto; }
+
+  .engine-tabs {
+    display: flex;
+    gap: 0;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 3rem;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+
+  .engine-tabs::-webkit-scrollbar { display: none; }
+
+  .engine-tab {
+    padding: 1rem 1.5rem;
+    background: none;
+    border: none;
+    border-bottom: 2px solid transparent;
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.15s;
+    white-space: nowrap;
+    font-family: inherit;
+    margin-bottom: -1px;
+  }
+
+  .engine-tab:hover { color: var(--text); }
+
+  .engine-tab.active {
+    color: var(--text);
+    border-bottom-color: var(--accent);
+  }
+
+  .engine-panel {
+    display: none;
+  }
+
+  .engine-panel.active {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+  }
+
+  @media (max-width: 900px) {
+    .engine-panel.active { grid-template-columns: 1fr; gap: 2.5rem; }
+  }
+
+  .engine-text h3 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 1.25rem;
+  }
+
+  .engine-text > p {
+    color: var(--text-secondary);
+    font-size: 0.98rem;
+    line-height: 1.6;
+  }
+
+  .engine-features {
+    list-style: none;
+    margin-top: 1.5rem;
+  }
+
+  .engine-features li {
+    padding: 0.75rem 0 0.75rem 2rem;
+    border-bottom: 1px solid var(--border);
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+    line-height: 1.55;
+    position: relative;
+  }
+
+  .engine-features li:last-child { border-bottom: none; }
+
+  .engine-features li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 1.05rem;
+    width: 18px;
+    height: 18px;
+    background: var(--accent-soft);
+    border-radius: 50%;
+  }
+
+  .engine-features li::after {
+    content: '';
+    position: absolute;
+    left: 5px;
+    top: 1.3rem;
+    width: 8px;
+    height: 4px;
+    border-left: 2px solid var(--accent);
+    border-bottom: 2px solid var(--accent);
+    transform: rotate(-45deg);
+  }
+
+  .engine-visual {
+    background: var(--bg-alt);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    aspect-ratio: 4 / 3;
+    padding: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* Engine tab visuals */
+  .viz-extract {
+    width: 100%;
+    height: 100%;
+    display: grid;
+    grid-template-columns: 1fr 0.5fr 1fr;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .viz-sources {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+
+  .viz-source {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 0.6rem 0.85rem;
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+    text-align: center;
+  }
+
+  .viz-flow {
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--accent), transparent);
+    background-size: 60px 100%;
+    animation: flow 2s linear infinite;
+  }
+
+  @keyframes flow {
+    0% { background-position: -60px 0; }
+    100% { background-position: calc(100% + 60px) 0; }
+  }
+
+  .viz-target {
+    background: var(--text);
+    color: #fff;
+    border-radius: 8px;
+    padding: 1.25rem 0.85rem;
+    text-align: center;
+    font-size: 0.78rem;
+    font-weight: 600;
+    line-height: 1.4;
+  }
+
+  .viz-contextualize { width: 100%; height: 100%; }
+  .viz-contextualize svg { width: 100%; height: 100%; }
+
+  .viz-collaborate {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 0.7rem;
+    justify-content: center;
+  }
+
+  .viz-msg {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 0.7rem 0.95rem;
+    font-size: 0.8rem;
+    max-width: 85%;
+    line-height: 1.45;
+  }
+
+  .viz-msg.right {
+    align-self: flex-end;
+    background: var(--accent);
+    color: #fff;
+    border-color: var(--accent);
+  }
+
+  .viz-scale {
+    width: 100%;
+    height: 100%;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    gap: 0.5rem;
+  }
+
+  .viz-site {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.7rem;
+    font-weight: 600;
+    color: var(--text-muted);
+  }
+
+  .viz-site.active {
+    background: var(--accent);
+    color: #fff;
+    border-color: var(--accent);
+  }
+
+  .viz-activate {
+    width: 100%;
+    height: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    gap: 0.6rem;
+  }
+
+  .viz-agent {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 0.7rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 0.3rem;
+  }
+
+  .viz-agent-name {
+    font-family: monospace;
+    font-size: 0.6rem;
+    color: var(--accent);
+    font-weight: 700;
+  }
+
+  .viz-agent-label {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--text);
+  }
+
+  /* CTA banner */
+  .cta-banner {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: clamp(2rem, 4vw, 3rem);
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 2rem;
+    align-items: center;
+    margin-top: 4rem;
+  }
+
+  @media (max-width: 720px) {
+    .cta-banner { grid-template-columns: 1fr; }
+  }
+
+  .cta-banner h3 {
+    font-size: 1.35rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+  }
+
+  .cta-banner p {
+    color: var(--text-secondary);
+    font-size: 0.98rem;
+  }
+
+  .cta-banner-actions {
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+  }
+
+  /* Outcomes stats */
+  .stats-header {
+    text-align: center;
+    max-width: 720px;
+    margin: 0 auto 3.5rem;
+  }
+
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    margin-bottom: 3rem;
+  }
+
+  @media (max-width: 860px) {
+    .stats-grid { grid-template-columns: 1fr; gap: 1.5rem; }
+  }
+
+  .stat-card {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 2.5rem 2rem;
+    text-align: center;
+    transition: border-color 0.2s;
+  }
+
+  .stat-card:hover { border-color: var(--accent); }
+
+  .stat-value {
+    font-size: 3rem;
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    color: var(--text);
+    line-height: 1;
+    margin-bottom: 0.5rem;
+  }
+
+  .stat-label {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    margin-bottom: 1rem;
+  }
+
+  .stat-desc {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    line-height: 1.55;
+  }
+
+  /* Outcome items grid */
+  .outcomes-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+    margin-top: 3rem;
+  }
+
+  .outcome-item {
+    padding: 2rem;
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    transition: all 0.2s;
+  }
+
+  .outcome-item:hover {
+    border-color: var(--accent);
+    box-shadow: 0 4px 16px rgba(0, 102, 255, 0.08);
+  }
+
+  .outcome-num {
+    display: inline-block;
+    font-family: monospace;
+    font-size: 0.75rem;
+    color: var(--accent);
+    background: var(--accent-soft);
+    padding: 0.25rem 0.65rem;
+    border-radius: 4px;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    letter-spacing: 0.05em;
+  }
+
+  .outcome-item h3 {
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-bottom: 0.65rem;
+  }
+
+  .outcome-item p {
+    color: var(--text-secondary);
+    font-size: 0.92rem;
+    line-height: 1.6;
+  }
+
+  /* Final CTA */
+  .final-cta {
+    background: var(--bg-dark);
+    color: #fff;
+    text-align: center;
+    padding: clamp(4rem, 8vw, 6rem) var(--padding);
+  }
+
+  .final-cta-inner {
+    max-width: 720px;
+    margin: 0 auto;
+  }
+
+  .final-cta h2 {
+    color: #fff;
+    font-size: clamp(2rem, 4vw, 2.75rem);
+    margin-bottom: 1.25rem;
+  }
+
+  .final-cta p {
+    color: #c8d2e0;
+    font-size: 1.1rem;
+    line-height: 1.6;
+    margin-bottom: 2rem;
+  }
+
+  .btn-light {
+    background: #fff;
+    color: var(--text);
+    padding: 0.85rem 2rem;
+    border-radius: 6px;
+    font-size: 1rem;
+    font-weight: 600;
+    display: inline-block;
+    transition: transform 0.15s;
+  }
+
+  .btn-light:hover { transform: translateY(-1px); }
+
+  /* Footer */
+  footer {
+    background: var(--bg-alt);
+    padding: 2.5rem var(--padding);
+    border-top: 1px solid var(--border);
+  }
+
+  .footer-inner {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+    color: var(--text-muted);
+    font-size: 0.85rem;
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <a href="/" class="logo">
+      <span class="logo-mark">D</span>
+      <span>DevX AI Labs</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#capabilities">Capabilities</a></li>
+      <li><a href="#engine">The Engine</a></li>
+      <li><a href="#agents">Agents</a></li>
+      <li><a href="#outcomes">Outcomes</a></li>
+    </ul>
+    <a href="#contact" class="btn-primary">Get started</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-grid">
+    <div>
+      <h1>Build Industrial AI that fits your operations — not the other way around.</h1>
+      <p class="lede">
+        DevX delivers a custom-built industrial data foundation and AI agents inside your own Azure tenant, designed for your assets, your taxonomy, and the way your engineers actually work.
+      </p>
+      <div class="hero-cta">
+        <a href="#contact" class="btn-primary">Talk to a product expert</a>
+        <a href="#engine" class="btn-secondary">Explore the platform</a>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="schematic">
+        <div class="schematic-layer accent">
+          <div class="schematic-icon">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#0066ff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="3"/><path d="M12 1v6M12 17v6M4.22 4.22l4.24 4.24M15.54 15.54l4.24 4.24M1 12h6M17 12h6"/>
+            </svg>
+          </div>
+          <div class="schematic-text">
+            <div class="schematic-label">Layer 3</div>
+            <div class="schematic-title">AI Agents — Sentinel · Diagnostician · Memory · Optimizer</div>
+          </div>
+        </div>
+        <div class="schematic-arrow">↑</div>
+        <div class="schematic-layer">
+          <div class="schematic-icon">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#0066ff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+            </svg>
+          </div>
+          <div class="schematic-text">
+            <div class="schematic-label">Layer 2</div>
+            <div class="schematic-title">Industrial Data Model — CFIHOS-aligned, scalable</div>
+          </div>
+        </div>
+        <div class="schematic-arrow">↑</div>
+        <div class="schematic-layer">
+          <div class="schematic-icon">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#0066ff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5v14a9 3 0 0 0 18 0V5M3 12a9 3 0 0 0 18 0"/>
+            </svg>
+          </div>
+          <div class="schematic-text">
+            <div class="schematic-label">Layer 1</div>
+            <div class="schematic-title">Ingestion & Data Quality — PI · SAP · Documents · CAD</div>
+          </div>
+        </div>
+        <div class="schematic-arrow">↑</div>
+        <div class="schematic-layer" style="opacity: 0.7;">
+          <div class="schematic-icon">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#6b7a8f" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/>
+            </svg>
+          </div>
+          <div class="schematic-text">
+            <div class="schematic-label" style="color: var(--text-muted);">SOURCES</div>
+            <div class="schematic-title" style="color: var(--text-muted);">Your existing OT/IT systems</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- THREE PILLARS -->
+<section class="section-alt">
+  <div class="container">
+    <div class="pillars">
+      <div class="pillar">
+        <h3>Model your data</h3>
+        <p>
+          Every refinery, every asset class, every tag convention is different. We build a data model fitted to your operational reality — not a generic industry template stretched to fit. Scalable by design, so the first 50 assets and the eventual 50,000 share the same foundation.
+        </p>
+      </div>
+      <div class="pillar">
+        <h3>Contextualize your data</h3>
+        <p>
+          A sensor tag is just a number until it's linked to the pump, the P&ID, the maintenance history, the OEM spec, and the engineer who last touched it. We connect these in your data foundation so AI agents — and your engineers — always have the full picture.
+        </p>
+      </div>
+      <div class="pillar">
+        <h3>Activate your data</h3>
+        <p>
+          Purpose-built AI agents work on top of the data foundation to detect anomalies early, accelerate root cause analysis, capture institutional knowledge, and optimize planned maintenance. Every output is explainable, every action human-reviewed.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MIDDLE PROOF SECTION -->
+<section id="capabilities">
+  <div class="proof-grid">
+    <div>
+      <div class="eyebrow">The Foundation Problem</div>
+      <h2>You can't run reliable AI on fragmented industrial data.</h2>
+      <p class="section-lede" style="margin-bottom: 1.5rem;">
+        Sensor data lives in OSIsoft PI. Maintenance records sit in SAP. P&IDs hide in CAD systems. Engineering documents pile up in SharePoint. Decades of tag renames, sensor swaps, and inconsistent asset numbering across refineries have eroded data quality without anyone noticing.
+      </p>
+      <p class="section-lede">
+        Until that foundation is fixed, even the best AI agents will hallucinate, drift, and lose engineer trust within weeks. The data model has to come first — and it has to scale.
+      </p>
+    </div>
+    <div class="proof-visual">
+      <div class="data-flow">
+        <div class="data-flow-item">
+          <span>OSIsoft PI Historian</span>
+          <span class="data-flow-tag">VT-2031A.PV</span>
+        </div>
+        <div class="data-flow-item">
+          <span>SAP PM Maintenance</span>
+          <span class="data-flow-tag">WO-44128</span>
+        </div>
+        <div class="data-flow-item">
+          <span>P&ID — AutoCAD</span>
+          <span class="data-flow-tag">PID-CDU-3</span>
+        </div>
+        <div class="data-flow-item highlight">
+          <span>↓ Contextualized in DevX</span>
+          <span class="data-flow-tag">Pump P-204</span>
+        </div>
+        <div class="data-flow-item">
+          <span>3D Plant Model</span>
+          <span class="data-flow-tag">UNIT-CDU-02</span>
+        </div>
+        <div class="data-flow-item">
+          <span>OEM Manual</span>
+          <span class="data-flow-tag">Sulzer-OH2</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ENGINE SECTION -->
+<section id="engine" class="section-alt">
+  <div class="container">
+    <div class="engine-header">
+      <div class="eyebrow">The DevX Platform</div>
+      <h2>Unpack the DevX engine</h2>
+      <p class="section-lede">
+        Five capabilities working together to turn fragmented industrial data into measurable operational outcomes — from extraction through agent activation.
+      </p>
+    </div>
+
+    <div class="engine-tabs" role="tablist">
+      <button class="engine-tab active" data-tab="extract">Extract</button>
+      <button class="engine-tab" data-tab="contextualize">Contextualize</button>
+      <button class="engine-tab" data-tab="collaborate">Collaborate</button>
+      <button class="engine-tab" data-tab="scale">Scale</button>
+      <button class="engine-tab" data-tab="activate">Activate AI</button>
+    </div>
+
+    <div class="engine-panel active" data-panel="extract">
+      <div class="engine-text">
+        <h3>Purpose-built ingestion for industrial systems.</h3>
+        <p>
+          Native connectors to the systems your plants actually run on — historians, maintenance management, document repositories, engineering CAD — with built-in data quality remediation.
+        </p>
+        <ul class="engine-features">
+          <li>Native connectors for OSIsoft PI, SAP PM, Maximo, SharePoint, AVEVA E3D, AutoCAD</li>
+          <li>Data quality remediation pipeline — gap-fill, drift correction, tag-rename reconciliation</li>
+          <li>Master data harmonization across multiple sites and refineries</li>
+          <li>Continuous extraction monitoring with automated alerts on data flow interruptions</li>
+        </ul>
+      </div>
+      <div class="engine-visual">
+        <div class="viz-extract">
+          <div class="viz-sources">
+            <div class="viz-source">OSIsoft PI</div>
+            <div class="viz-source">SAP PM</div>
+            <div class="viz-source">SharePoint</div>
+            <div class="viz-source">AutoCAD</div>
+          </div>
+          <div class="viz-flow"></div>
+          <div class="viz-target">DevX<br />Foundation</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="engine-panel" data-panel="contextualize">
+      <div class="engine-text">
+        <h3>Industrial Knowledge Graph, fitted to your taxonomy.</h3>
+        <p>
+          Every sensor, asset, document, drawing, and maintenance record connected through a CFIHOS-aligned data model that mirrors how your engineers actually think about the plant.
+        </p>
+        <ul class="engine-features">
+          <li>CFIHOS-aligned asset hierarchy and functional location model</li>
+          <li>Auto-linking of sensor tags to physical assets, P&ID positions, and maintenance records</li>
+          <li>Document parsing — extract specs, parameters, and procedures from OEM PDFs</li>
+          <li>3D model integration with spatial context for field operations</li>
+        </ul>
+      </div>
+      <div class="engine-visual">
+        <div class="viz-contextualize">
+          <svg viewBox="0 0 300 220">
+            <circle cx="150" cy="110" r="32" fill="#0066ff" />
+            <text x="150" y="108" text-anchor="middle" fill="#fff" font-size="10" font-weight="700" font-family="Inter">PUMP</text>
+            <text x="150" y="120" text-anchor="middle" fill="#fff" font-size="10" font-weight="700" font-family="Inter">P-204</text>
+            <circle cx="50" cy="50" r="22" fill="#fff" stroke="#0066ff" stroke-width="2" />
+            <text x="50" y="48" text-anchor="middle" fill="#0a1628" font-size="8" font-weight="600" font-family="Inter">Sensor</text>
+            <text x="50" y="58" text-anchor="middle" fill="#0a1628" font-size="8" font-weight="600" font-family="Inter">VT-2031A</text>
+            <circle cx="250" cy="50" r="22" fill="#fff" stroke="#0066ff" stroke-width="2" />
+            <text x="250" y="48" text-anchor="middle" fill="#0a1628" font-size="8" font-weight="600" font-family="Inter">P&amp;ID</text>
+            <text x="250" y="58" text-anchor="middle" fill="#0a1628" font-size="8" font-weight="600" font-family="Inter">CDU-3</text>
+            <circle cx="50" cy="170" r="22" fill="#fff" stroke="#0066ff" stroke-width="2" />
+            <text x="50" y="168" text-anchor="middle" fill="#0a1628" font-size="8" font-weight="600" font-family="Inter">SAP PM</text>
+            <text x="50" y="178" text-anchor="middle" fill="#0a1628" font-size="8" font-weight="600" font-family="Inter">WO-44128</text>
+            <circle cx="250" cy="170" r="22" fill="#fff" stroke="#0066ff" stroke-width="2" />
+            <text x="250" y="168" text-anchor="middle" fill="#0a1628" font-size="8" font-weight="600" font-family="Inter">OEM</text>
+            <text x="250" y="178" text-anchor="middle" fill="#0a1628" font-size="8" font-weight="600" font-family="Inter">Sulzer</text>
+            <line x1="72" y1="65" x2="120" y2="92" stroke="#0066ff" stroke-width="1.5" />
+            <line x1="228" y1="65" x2="180" y2="92" stroke="#0066ff" stroke-width="1.5" />
+            <line x1="72" y1="155" x2="120" y2="128" stroke="#0066ff" stroke-width="1.5" />
+            <line x1="228" y1="155" x2="180" y2="128" stroke="#0066ff" stroke-width="1.5" />
+          </svg>
+        </div>
+      </div>
+    </div>
+
+    <div class="engine-panel" data-panel="collaborate">
+      <div class="engine-text">
+        <h3>Engineers query in natural language. Outputs cite their sources.</h3>
+        <p>
+          Reliability engineers, operations leads, and turnaround planners can ask questions of the data foundation conversationally — in Thai or English — and get sourced answers, not generic AI guesses.
+        </p>
+        <ul class="engine-features">
+          <li>Natural language interface, bilingual Thai and English</li>
+          <li>Every answer cites underlying data — specific PI tags, work orders, manual pages</li>
+          <li>Human-in-the-loop on every recommendation — engineers accept, edit, or reject</li>
+          <li>Feedback loop retrains models on engineer corrections</li>
+        </ul>
+      </div>
+      <div class="engine-visual">
+        <div class="viz-collaborate">
+          <div class="viz-msg">Last time C-201 showed this vibration pattern?</div>
+          <div class="viz-msg right">March 2025. Bearing degradation, resolved with bearing replacement during planned shutdown. ↗ View incident</div>
+          <div class="viz-msg">Show me the work order.</div>
+          <div class="viz-msg right">WO-44128, SAP PM. Parts used: SKF-7320BECBM ↗</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="engine-panel" data-panel="scale">
+      <div class="engine-text">
+        <h3>From one unit to enterprise — same architecture.</h3>
+        <p>
+          The data model and agent stack are designed to scale from a single unit at one refinery to enterprise-wide deployment without rebuilding. No tech debt at scale — the foundation grows with you.
+        </p>
+        <ul class="engine-features">
+          <li>Multi-site, multi-refinery deployment from a single tenant</li>
+          <li>Asset-class learnings transfer across sites automatically</li>
+          <li>Centralized governance, federated operational autonomy</li>
+          <li>Extension paths to upstream, petrochemicals, and adjacent business units</li>
+        </ul>
+      </div>
+      <div class="engine-visual">
+        <div class="viz-scale">
+          <div class="viz-site active">CDU</div>
+          <div class="viz-site active">VDU</div>
+          <div class="viz-site">FCC</div>
+          <div class="viz-site active">Hydro</div>
+          <div class="viz-site active">Reform</div>
+          <div class="viz-site">SRU</div>
+          <div class="viz-site">Iso</div>
+          <div class="viz-site">Util</div>
+          <div class="viz-site">Tank</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="engine-panel" data-panel="activate">
+      <div class="engine-text">
+        <h3>Four purpose-built agents, one outcome: uptime.</h3>
+        <p>
+          On top of the contextualized data foundation, four agents work in concert — detecting anomalies early, diagnosing root cause, capturing institutional knowledge, and optimizing turnaround scope.
+        </p>
+        <ul class="engine-features">
+          <li>Sentinel — anomaly detection 60–120 days before failure</li>
+          <li>Diagnostician — RCA briefs generated in under 5 minutes, fully cited</li>
+          <li>Memory — institutional knowledge captured and made queryable</li>
+          <li>Turnaround Optimizer — planned maintenance scope intelligence</li>
+        </ul>
+      </div>
+      <div class="engine-visual">
+        <div class="viz-activate">
+          <div class="viz-agent">
+            <div class="viz-agent-name">AGENT 01</div>
+            <div class="viz-agent-label">Sentinel</div>
+          </div>
+          <div class="viz-agent">
+            <div class="viz-agent-name">AGENT 02</div>
+            <div class="viz-agent-label">Diagnostician</div>
+          </div>
+          <div class="viz-agent">
+            <div class="viz-agent-name">AGENT 03</div>
+            <div class="viz-agent-label">Memory</div>
+          </div>
+          <div class="viz-agent">
+            <div class="viz-agent-name">AGENT 04</div>
+            <div class="viz-agent-label">Optimizer</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="cta-banner">
+      <div>
+        <h3>See the platform in your environment.</h3>
+        <p>Schedule a working session with a DevX solution architect to see the engine applied to your specific data sources and asset hierarchy.</p>
+      </div>
+      <div class="cta-banner-actions">
+        <a href="#contact" class="btn-primary">Talk to a product expert</a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- AGENTS DEEP-DIVE -->
+<section id="agents">
+  <div class="container">
+    <div style="text-align: center; max-width: 720px; margin: 0 auto 3.5rem;">
+      <div class="eyebrow">The Agents</div>
+      <h2>Purpose-built for refining operations.</h2>
+      <p class="section-lede" style="margin: 0 auto;">
+        Every agent has explicit scope, bounded decision authority, and human-in-the-loop design. No autonomous black boxes inside critical operations.
+      </p>
+    </div>
+
+    <div class="outcomes-grid">
+      <div class="outcome-item">
+        <span class="outcome-num">01 · SENTINEL</span>
+        <h3>Continuous anomaly detection</h3>
+        <p>
+          Detects degradation patterns in rotating equipment 60–120 days before failure using ensemble ML tuned to your specific equipment baselines. Surfaces a prioritized daily watchlist ranked by predicted impact.
+        </p>
+      </div>
+      <div class="outcome-item">
+        <span class="outcome-num">02 · DIAGNOSTICIAN</span>
+        <h3>Automated root cause analysis</h3>
+        <p>
+          When an anomaly fires, generates a structured RCA brief in under 5 minutes — probable cause, supporting evidence, recommended action, parts needed, MTTR estimate. Every claim cites its data source.
+        </p>
+      </div>
+      <div class="outcome-item">
+        <span class="outcome-num">03 · MEMORY</span>
+        <h3>Institutional knowledge capture</h3>
+        <p>
+          Every resolved incident logged with full context. Searchable in Thai or English. Captures the tacit knowledge of senior engineers before retirement — turning tribal expertise into a queryable institutional asset.
+        </p>
+      </div>
+      <div class="outcome-item">
+        <span class="outcome-num">04 · OPTIMIZER</span>
+        <h3>Planned maintenance scope intelligence</h3>
+        <p>
+          Analyzes long-term degradation trends and corrosion data to recommend turnaround scope changes. What to inspect, what to defer, what to replace — informed by data, decided by your engineers.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- OUTCOMES -->
+<section id="outcomes" class="section-alt">
+  <div class="container">
+    <div class="stats-header">
+      <div class="eyebrow">Outcomes Inferred</div>
+      <h2>What you can say with custom — and only with custom.</h2>
+      <p class="section-lede" style="margin: 0 auto;">
+        A purpose-built solution unlocks operational outcomes that a generic platform cannot infer from your data, your assets, or your engineers' workflows.
+      </p>
+    </div>
+
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-value">100%</div>
+        <div class="stat-label">IP and data sovereignty</div>
+        <p class="stat-desc">
+          Trained model weights, the data foundation, agent logic — all of it lives inside your Azure tenant. Operational intelligence for national energy infrastructure stays under your control.
+        </p>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value">1:1</div>
+        <div class="stat-label">Fit to your asset taxonomy</div>
+        <p class="stat-desc">
+          Data model built to your asset hierarchy, your tag conventions, your maintenance ontology — not retrofitted to a vendor's generic schema with translation layers introducing errors.
+        </p>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value">2</div>
+        <div class="stat-label">Native languages, day one</div>
+        <p class="stat-desc">
+          Agent outputs, engineer interfaces, and Memory queries native in Thai and English. Senior plant engineers use the system in their preferred language — no translation friction.
+        </p>
+      </div>
+    </div>
+
+    <div class="outcomes-grid">
+      <div class="outcome-item">
+        <span class="outcome-num">OUTCOME</span>
+        <h3>Architectural optionality preserved</h3>
+        <p>
+          Built on CFIHOS open standards inside your Azure tenant — you can adopt any enterprise platform later (or none at all) without rebuilding. The investment compounds rather than locks in.
+        </p>
+      </div>
+      <div class="outcome-item">
+        <span class="outcome-num">OUTCOME</span>
+        <h3>EBITDA contribution this cycle</h3>
+        <p>
+          Focused scope on the assets that matter most means measurable operational impact within the current fiscal cycle — aligned to Mission X reporting cadence, not enterprise-platform timelines.
+        </p>
+      </div>
+      <div class="outcome-item">
+        <span class="outcome-num">OUTCOME</span>
+        <h3>Engineers trust the system</h3>
+        <p>
+          Every recommendation explainable, every claim cited to its data source, every decision human-reviewed. Engineer trust earned through transparency — not assumed through marketing.
+        </p>
+      </div>
+      <div class="outcome-item">
+        <span class="outcome-num">OUTCOME</span>
+        <h3>Sovereign operational AI</h3>
+        <p>
+          All data residency in Azure Southeast Asia region. No data leaves your boundary for model training. Vendor security review fully supported. Aligned to IEC 62443 and ISO 27001.
+        </p>
+      </div>
+      <div class="outcome-item">
+        <span class="outcome-num">OUTCOME</span>
+        <h3>Process safety preserved</h3>
+        <p>
+          Hard architectural boundaries at safety instrumented systems. No agent within the IEC 61511 envelope. All recommendations enter your Management of Change workflow — never bypass it.
+        </p>
+      </div>
+      <div class="outcome-item">
+        <span class="outcome-num">OUTCOME</span>
+        <h3>Knowledge that scales with you</h3>
+        <p>
+          The institutional knowledge captured by Memory is your IP, growing every day with every resolved incident. A proprietary failure-pattern library that becomes a competitive moat over time.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section id="contact" class="final-cta">
+  <div class="final-cta-inner">
+    <h2>Ready to scope the engagement?</h2>
+    <p>
+      Discovery is a two-day on-site working session at your refinery or headquarters. We leave with a refined proposal, agreed success metrics, and a clear engagement plan tailored to your assets and your operational priorities.
+    </p>
+    <a href="mailto:hello@devxailabs.com?subject=Discovery%20Request" class="btn-light">Request Discovery</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div>© 2026 DevX AI Labs · Industrial AI, built right.</div>
+    <div>POV v2.0</div>
+  </div>
+</footer>
+
+<script>
+  // Engine tab switcher
+  const tabs = document.querySelectorAll('.engine-tab');
+  const panels = document.querySelectorAll('.engine-panel');
+  tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      const target = tab.dataset.tab;
+      tabs.forEach(t => t.classList.remove('active'));
+      panels.forEach(p => p.classList.remove('active'));
+      tab.classList.add('active');
+      document.querySelector(`[data-panel="${target}"]`).classList.add('active');
+    });
+  });
+</script>
+
+</body>
+</html>
