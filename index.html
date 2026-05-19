@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>DevX AI Labs — Custom Industrial AI for Refining Operations</title>
+<title>devx AI Labs — Custom Industrial AI for Refining Operations</title>
 <meta name="description" content="A custom industrial AI foundation and agents, built in your tenant, designed for your assets and your engineers." />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -934,6 +934,116 @@
   .arch-title { font-size:0.85rem; font-weight:700; margin-bottom:0.2rem; }
   .arch-desc  { font-size:0.78rem; color:var(--text-muted); line-height:1.5; }
 
+  /* ── UI/UX section ── */
+  .uiux-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.25rem;
+    margin-bottom: 1.5rem;
+  }
+  @media(max-width:900px){ .uiux-grid{ grid-template-columns:1fr; } }
+
+  .uiux-card {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 2rem;
+  }
+  .uiux-card.featured {
+    border-color: rgba(109,40,217,0.2);
+    background: linear-gradient(135deg,#faf5ff 0%,#f7f8fa 100%);
+  }
+
+  .uiux-icon {
+    width: 44px; height: 44px;
+    border-radius: 10px;
+    background: linear-gradient(135deg,#8b5cf6,#6d28d9);
+    color: #fff;
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 1rem;
+  }
+
+  .uiux-label {
+    font-size: 0.7rem; font-weight: 800;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    color: #6d28d9; margin-bottom: 0.5rem;
+  }
+
+  .uiux-card h3 { font-size:1.1rem; font-weight:700; margin-bottom:0.75rem; line-height:1.3; }
+  .uiux-card p  { font-size:0.88rem; color:var(--text-secondary); line-height:1.65; margin-bottom:1.25rem; }
+
+  .uiux-capability-list { display:flex; flex-direction:column; gap:0.4rem; }
+  .uiux-cap {
+    font-size: 0.8rem; color: var(--text-secondary);
+    padding: 0.4rem 0.75rem;
+    background: rgba(109,40,217,0.06);
+    border-radius: 5px;
+    border-left: 2px solid #8b5cf6;
+  }
+
+  .uiux-secondary {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px,1fr));
+    gap: 1rem;
+    margin-bottom: 2rem;
+  }
+
+  .uiux-secondary-card {
+    display: flex; gap: 0.85rem; align-items: flex-start;
+    background: var(--bg-alt);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 1.25rem;
+  }
+
+  .uiux-s-icon {
+    width: 34px; height: 34px;
+    border-radius: 8px;
+    background: linear-gradient(135deg,#8b5cf6,#6d28d9);
+    color: #fff;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .uiux-secondary-card h4 { font-size:0.88rem; font-weight:700; margin-bottom:0.35rem; }
+  .uiux-secondary-card p  { font-size:0.82rem; color:var(--text-muted); line-height:1.55; }
+
+  .uiux-contrast {
+    background: var(--bg-dark);
+    color: #fff;
+    border-radius: 10px;
+    padding: 2rem;
+  }
+  .uiux-contrast-label {
+    font-size: 0.7rem; font-weight:800; letter-spacing:0.1em; text-transform:uppercase;
+    color: rgba(255,255,255,0.5); margin-bottom:0.75rem;
+  }
+  .uiux-contrast p {
+    color: rgba(255,255,255,0.82);
+    font-size: 0.95rem; line-height: 1.7; max-width: 820px;
+  }
+
+  /* ── Honest outcomes ── */
+  .outcome-xx {
+    color: var(--text-muted) !important;
+    font-style: italic;
+    letter-spacing: 0.02em;
+  }
+
+  .honest-note {
+    display: flex; gap: 0.75rem; align-items: flex-start;
+    background: #fffbeb;
+    border: 1px solid rgba(245,158,11,0.25);
+    border-radius: 8px;
+    padding: 1rem 1.25rem;
+    margin-top: 1.25rem;
+    color: #92400e;
+    font-size: 0.85rem;
+    line-height: 1.6;
+  }
+  .honest-note svg { flex-shrink:0; margin-top:1px; color:#d97706; }
+  .honest-note p { margin:0; }
+
   /* Footer */
   footer {
     background: var(--bg-alt);
@@ -961,12 +1071,13 @@
   <div class="nav-inner">
     <a href="/" class="logo">
       <span class="logo-mark">D</span>
-      <span>DevX AI Labs</span>
+      <span>devx AI Labs</span>
     </a>
     <ul class="nav-links">
       <li><a href="#situation">Situation</a></li>
       <li><a href="#problem">Problem</a></li>
       <li><a href="#solution">Solution</a></li>
+      <li><a href="#uiux">Experience</a></li>
       <li><a href="#outcomes">Outcomes</a></li>
     </ul>
     <a href="prototype/" class="btn-primary">See the prototype →</a>
@@ -982,7 +1093,7 @@
       <div class="section-label-pill">Point of View · PTT PCL · Refining Operations</div>
       <h1>Custom Industrial AI for your refineries — built inside your tenant, around your assets.</h1>
       <p class="lede">
-        DevX AI Labs delivers a custom-built industrial data foundation and four AI agents inside PTT's own Azure environment — designed for your asset taxonomy, your engineers, and your two languages.
+        devx AI Labs delivers a custom-built industrial data foundation and four AI agents inside PTT's own Google Cloud environment — designed for your asset taxonomy, your engineers, and your two languages.
       </p>
       <div class="hero-cta">
         <a href="prototype/" class="btn-primary">See the live prototype →</a>
@@ -1168,7 +1279,7 @@
 
 <!-- ═══════════════════════════════════════════
      SECTION 3: SOLUTION
-     What DevX UpTime AI does — 3 layers + 4 agents
+     What devx UpTime AI does — 3 layers + 4 agents
 ════════════════════════════════════════════ -->
 <section id="solution" class="narrative-section">
   <div class="container">
@@ -1177,7 +1288,7 @@
       <span class="label-text">Our Solution</span>
     </div>
     <div style="max-width:780px; margin-bottom:3rem;">
-      <h2>DevX UpTime AI — a custom industrial AI system built inside your Azure tenant.</h2>
+      <h2>devx UpTime AI — a custom industrial AI system built inside your Google Cloud tenant.</h2>
       <p class="section-lede">
         Three layers working together: a data ingestion and quality foundation, a CFIHOS-aligned industrial data model, and four purpose-built AI agents — all running inside PTT's own infrastructure, trained on PTT's own failure modes, native in Thai and English.
       </p>
@@ -1290,8 +1401,8 @@
       <div class="arch-item">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
         <div>
-          <div class="arch-title">Data residency · Azure SEA</div>
-          <div class="arch-desc">All data and model weights stay inside PTT's Azure tenant. Nothing leaves your boundary.</div>
+          <div class="arch-title">Data residency · Google Cloud SEA</div>
+          <div class="arch-desc">All data and model weights stay inside PTT's Google Cloud tenant. Nothing leaves your boundary.</div>
         </div>
       </div>
       <div class="arch-item">
@@ -1335,7 +1446,7 @@
     <div id="engine" style="margin-top: 4rem;">
       <div class="engine-header">
         <div class="eyebrow">Under the Hood</div>
-        <h2>How the DevX engine works</h2>
+        <h2>How the devx engine works</h2>
         <p class="section-lede">Five capabilities working together from raw OT data to approved engineer action.</p>
       </div>
 
@@ -1367,7 +1478,7 @@
               <div class="viz-source">AutoCAD</div>
             </div>
             <div class="viz-flow"></div>
-            <div class="viz-target">DevX<br/>Foundation</div>
+            <div class="viz-target">devx<br/>Foundation</div>
           </div>
         </div>
       </div>
@@ -1436,7 +1547,7 @@
           <h3>From one unit to all four refineries — same architecture.</h3>
           <p>The data model and agent stack are designed to scale from a single CDU unit at Sriracha to enterprise-wide deployment across all PTT refineries without rebuilding. No tech debt at scale.</p>
           <ul class="engine-features">
-            <li>Multi-site, multi-refinery from a single PTT Azure tenant</li>
+            <li>Multi-site, multi-refinery from a single PTT Google Cloud tenant</li>
             <li>Asset-class learnings transfer across sites automatically</li>
             <li>Centralized governance, federated operational autonomy per refinery</li>
             <li>Extension paths to upstream PTTEP, petrochemicals, and adjacent business units</li>
@@ -1492,6 +1603,132 @@
 </section>
 
 <!-- ═══════════════════════════════════════════
+     SECTION 3b: UI/UX — THE EXPERIENCE LAYER
+     This is the Cognite gap — surfaces it as devx's core differentiator
+════════════════════════════════════════════ -->
+<section id="uiux" class="narrative-section">
+  <div class="container">
+    <div class="narrative-label" style="background:#f3e8ff;color:#6d28d9;border:1px solid rgba(109,40,217,0.2);">
+      <span class="label-num" style="color:#6d28d9;background:rgba(109,40,217,0.12);">3b</span>
+      <span class="label-text">The Experience Layer</span>
+    </div>
+    <div style="max-width:780px; margin-bottom:3rem;">
+      <h2>The part most industrial AI gets wrong — the interface engineers actually use.</h2>
+      <p class="section-lede">Data models and agents are the foundation. But if the experience is clunky, engineers work around it. devx is built UI-first: a multimodal interface and action engine designed around how reliability engineers think and work, not how databases are structured.</p>
+    </div>
+
+    <!-- UI/UX core pillars -->
+    <div class="uiux-grid">
+
+      <div class="uiux-card featured">
+        <div class="uiux-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+        </div>
+        <div class="uiux-label">Core · Multimodal UI Engine</div>
+        <h3>One canvas. Every modality.</h3>
+        <p>Engineers move between text queries, sensor charts, P&ID overlays, vibration waveforms, and maintenance timelines — all in a single contextual workspace. No tab-switching between systems. No copy-paste between tools. The interface understands what asset you're looking at and surfaces the right modality automatically.</p>
+        <div class="uiux-capability-list">
+          <div class="uiux-cap">Natural language query in Thai or English</div>
+          <div class="uiux-cap">Live sensor chart with anomaly overlay</div>
+          <div class="uiux-cap">P&ID context panel linked to active asset</div>
+          <div class="uiux-cap">Maintenance timeline with work order drill-down</div>
+          <div class="uiux-cap">Vibration FFT spectrum for rotating equipment</div>
+        </div>
+      </div>
+
+      <div class="uiux-card featured">
+        <div class="uiux-icon" style="background:linear-gradient(135deg,#8b5cf6,#6d28d9);">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+        </div>
+        <div class="uiux-label">Core · Action Engine</div>
+        <h3>From insight to work order in one flow.</h3>
+        <p>The action engine bridges AI recommendations and existing operational workflows. An agent surfaces an anomaly. The engineer reviews the RCA brief. One click creates the SAP work order, routes the MOC ticket, notifies the right team, and logs the decision in Memory — all without leaving the canvas, all with full audit trail.</p>
+        <div class="uiux-capability-list">
+          <div class="uiux-cap">SAP PM work order creation from RCA output</div>
+          <div class="uiux-cap">MOC routing with risk classification auto-tagging</div>
+          <div class="uiux-cap">Team notification with context attached</div>
+          <div class="uiux-cap">Decision logged to Memory on approval</div>
+          <div class="uiux-cap">Full audit chain: detection → brief → approval → action</div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Supporting UI/UX differentiators -->
+    <div class="uiux-secondary">
+
+      <div class="uiux-secondary-card">
+        <div class="uiux-s-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><circle cx="12" cy="12" r="10"/></svg>
+        </div>
+        <div>
+          <h4>Role-aware views</h4>
+          <p>The reliability engineer, the shift supervisor, and the turnaround planner see the same data through different lenses. Each role gets a configured workspace — not the same dashboard with different filters.</p>
+        </div>
+      </div>
+
+      <div class="uiux-secondary-card">
+        <div class="uiux-s-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </div>
+        <div>
+          <h4>Explainability surface</h4>
+          <p>Every agent recommendation exposes its reasoning — not as a tooltip or a hidden log, but as a first-class part of the interface. Engineers see what was pulled, why, and from where before they approve anything.</p>
+        </div>
+      </div>
+
+      <div class="uiux-secondary-card">
+        <div class="uiux-s-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+        </div>
+        <div>
+          <h4>Bilingual interface — native, not translated</h4>
+          <p>Language toggle at the session level. Agent outputs render in the engineer's chosen language. Memory search works in both Thai and English against the same index.</p>
+        </div>
+      </div>
+
+      <div class="uiux-secondary-card">
+        <div class="uiux-s-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
+        </div>
+        <div>
+          <h4>Mobile-first field view</h4>
+          <p>The field engineer walking the plant gets a stripped-down mobile view — asset status, active alerts, pending approvals — without the full canvas. Offline-capable for areas with poor connectivity.</p>
+        </div>
+      </div>
+
+      <div class="uiux-secondary-card">
+        <div class="uiux-s-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+        </div>
+        <div>
+          <h4>Progressive disclosure</h4>
+          <p>Surface-level: what needs attention now. One level deeper: the evidence. Deepest: the raw data and source citations. Engineers scan fast, drill when needed — not buried in information on arrival.</p>
+        </div>
+      </div>
+
+      <div class="uiux-secondary-card">
+        <div class="uiux-s-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+        </div>
+        <div>
+          <h4>Engineer feedback loop</h4>
+          <p>Engineers correct, annotate, and override recommendations directly in the interface. Every correction retrains the underlying model. The system learns from the plant — and specifically from the engineers who know it best.</p>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- UI/UX vs platform contrast -->
+    <div class="uiux-contrast">
+      <div class="uiux-contrast-label">Why the experience layer matters</div>
+      <p>Platform solutions like Cognite are built to unify and expose data. The interface is often secondary — a dashboard on top of a data model. devx is built in the opposite direction: the engineer's workflow is the starting point, and the data architecture is designed to serve it. That distinction determines whether engineers use the system or work around it.</p>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════
      SECTION 4: OUTCOMES
      Benchmarks + what custom uniquely unlocks
 ════════════════════════════════════════════ -->
@@ -1502,58 +1739,63 @@
       <span class="label-text">Outcomes</span>
     </div>
     <div style="max-width:780px; margin-bottom:3rem;">
-      <h2>What operational AI delivers — and what custom uniquely enables.</h2>
-      <p class="section-lede">Industry benchmark outcome ranges based on comparable deployments in oil and gas. Custom delivery unlocks additional outcomes a generic platform cannot infer from your data.</p>
+      <h2>What becomes possible — not a promise, a direction.</h2>
+      <p class="section-lede">We won't put numbers on outcomes we haven't earned yet. What we can say clearly: these are the operational shifts this system is designed to move. Actual impact depends on your data quality, asset mix, and operational baseline — which is exactly why we start with a scoped discovery before claiming anything.</p>
     </div>
 
     <div class="stats-grid">
       <div class="stat-card">
-        <div class="stat-value">20–45%</div>
+        <div class="stat-value outcome-xx">xx%</div>
         <div class="stat-label">Reduction in unplanned downtime</div>
-        <p class="stat-desc">Sentinel's early warning converts reactive shutdowns into planned interventions. Fewer emergency callouts, lower MTTR, better production continuity.</p>
+        <p class="stat-desc">Early warning converts reactive shutdowns into planned interventions. How much depends on your current detection gap — something we map together in discovery.</p>
       </div>
       <div class="stat-card">
-        <div class="stat-value">15–30%</div>
+        <div class="stat-value outcome-xx">xx%</div>
         <div class="stat-label">Turnaround duration reduction</div>
-        <p class="stat-desc">Risk-weighted scope optimization defers low-risk items, adds high-risk items Sentinel surfaced, and shortens total planned outage time.</p>
+        <p class="stat-desc">Risk-weighted scope optimization defers low-risk items and surfaces high-risk ones. The gap between your current scope and the optimal scope determines the upside.</p>
       </div>
       <div class="stat-card">
-        <div class="stat-value">50%+</div>
+        <div class="stat-value outcome-xx">xx%</div>
         <div class="stat-label">Faster engineer time-to-RCA</div>
-        <p class="stat-desc">Diagnostician replaces 4–8 hours of manual cross-referencing with a cited brief in under 60 seconds. Engineer time redirected to judgment, not data gathering.</p>
+        <p class="stat-desc">Replacing manual cross-referencing across 5 systems with a cited brief changes engineer capacity fundamentally. Baseline your current MTTR and we measure against it.</p>
       </div>
+    </div>
+
+    <div class="honest-note">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+      <p>Industry comparables from similar oil &amp; gas deployments exist — we'll share them in context during discovery, not as headline claims before we've seen your data.</p>
     </div>
 
     <div class="outcomes-grid" style="margin-top:2.5rem;">
       <div class="outcome-item">
-        <span class="outcome-num">CUSTOM ONLY</span>
-        <h3>100% data sovereignty</h3>
-        <p>Trained model weights, data foundation, agent logic — all inside PTT's Azure tenant. Operational intelligence for national energy infrastructure stays under PTT's control.</p>
+        <span class="outcome-num">CAPABILITY</span>
+        <h3>Full data sovereignty</h3>
+        <p>Model weights, data foundation, agent logic — all inside PTT's Google Cloud tenant. Operational intelligence for national energy infrastructure stays under PTT's control.</p>
       </div>
       <div class="outcome-item">
-        <span class="outcome-num">CUSTOM ONLY</span>
+        <span class="outcome-num">CAPABILITY</span>
         <h3>Bilingual day one</h3>
         <p>Thai and English natively — not translated. Senior plant engineers operate in their language. No friction, no miscommunication on critical decisions.</p>
       </div>
       <div class="outcome-item">
-        <span class="outcome-num">CUSTOM ONLY</span>
+        <span class="outcome-num">CAPABILITY</span>
         <h3>Asset-specific AI tuning</h3>
-        <p>Models trained on PTT's specific failure modes, operating conditions, and asset baselines — not generic oil and gas patterns. The agents know P-204 is a different beast in monsoon season.</p>
+        <p>Models trained on PTT's specific failure modes, operating conditions, and asset baselines — not generic oil and gas patterns fitted to your plant after the fact.</p>
       </div>
       <div class="outcome-item">
-        <span class="outcome-num">CUSTOM ONLY</span>
+        <span class="outcome-num">CAPABILITY</span>
         <h3>Architectural optionality</h3>
-        <p>CFIHOS open standards mean PTT can adopt any enterprise platform later without rebuilding. The data foundation compounds as an asset, not a lock-in.</p>
+        <p>CFIHOS open standards mean PTT can adopt any enterprise platform later without rebuilding. The data foundation compounds as an asset, not a dependency.</p>
       </div>
       <div class="outcome-item">
-        <span class="outcome-num">CUSTOM ONLY</span>
+        <span class="outcome-num">CAPABILITY</span>
         <h3>Mission X-aligned delivery</h3>
-        <p>Scoped to the assets with the highest operational risk and EBITDA exposure. Measurable impact within the current fiscal cycle — not enterprise-platform timelines.</p>
+        <p>Scoped to the assets with the highest operational risk and EBITDA exposure. Designed to show measurable directional impact within the current fiscal cycle.</p>
       </div>
       <div class="outcome-item">
-        <span class="outcome-num">CUSTOM ONLY</span>
-        <h3>Knowledge as a growing asset</h3>
-        <p>Memory's institutional knowledge index grows with every resolved incident. A proprietary failure-pattern library — PTT's IP, not a vendor's — that compounds over time.</p>
+        <span class="outcome-num">CAPABILITY</span>
+        <h3>Knowledge that compounds</h3>
+        <p>Memory's institutional knowledge index grows with every resolved incident. PTT's own failure-pattern library — not a vendor's — accruing value with every shift.</p>
       </div>
     </div>
   </div>
@@ -1576,7 +1818,7 @@
 <!-- FOOTER -->
 <footer>
   <div class="footer-inner">
-    <div>© 2026 DevX AI Labs · Industrial AI, built right.</div>
+    <div>© 2026 devx AI Labs · Industrial AI, built right.</div>
     <div>POV v3.0 · Situation → Problem → Solution</div>
   </div>
 </footer>
